@@ -46,6 +46,17 @@ function resolveApiBase() {
   return window.location.origin;
 }
 
+// Show a helpful hint when hosted on GitHub Pages without configured API base
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const apiBase = resolveApiBase();
+    const isGithubPages = /\.github\.io$/.test(window.location.hostname);
+    if (isGithubPages && apiBase === window.location.origin) {
+      setStatus('تنبيه: تعمل الواجهة على GitHub Pages ولكن يلزم تعيين عنوان الخادم (API) عبر public/config.js أو باستخدام ?api=https://your-backend.example.com', false);
+    }
+  } catch (_) {}
+});
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const user = document.getElementById('user').value.trim();
