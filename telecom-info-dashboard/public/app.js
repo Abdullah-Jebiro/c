@@ -35,6 +35,17 @@ function setResult(data) {
   fields.raw.textContent = JSON.stringify(data._raw ?? data, null, 2);
 }
 
+// Resolve API base from config, query param (?api=...), or default same-origin
+function resolveApiBase() {
+  const params = new URLSearchParams(window.location.search);
+  const fromQuery = params.get('api');
+  if (fromQuery) return fromQuery;
+  if (typeof window.API_BASE === 'string' && window.API_BASE.trim() !== '') {
+    return window.API_BASE.trim();
+  }
+  return window.location.origin;
+}
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const user = document.getElementById('user').value.trim();
@@ -49,7 +60,8 @@ form.addEventListener('submit', async (e) => {
   resultCard.classList.add('hidden');
 
   try {
-    const url = new URL('/api/info', window.location.origin);
+    const apiBase = resolveApiBase();
+    const url = new URL('/api/info', apiBase);
     url.searchParams.set('user', user);
     url.searchParams.set('pass', pass);
 

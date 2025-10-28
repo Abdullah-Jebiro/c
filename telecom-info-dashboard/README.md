@@ -58,3 +58,20 @@ $env:MOCK = "1"; npm test
 
 ## أخطاء معروفة
 - إذا فشل الاتصال الخارجي في الوضع الحقيقي، ستحصل على رسالة `Upstream request failed`. تحقّق من صحة البريد/كلمة المرور أو حاول لاحقًا.
+
+## النشر على GitHub Pages
+GitHub Pages يستضيف ملفات ثابتة فقط، لذلك سننشر واجهة `public` هناك، ونستخدم خادم البروكسي (Node) مستضافًا في مكان آخر.
+
+1) نشر الواجهة على GitHub Pages:
+	- دفع (push) إلى الفرع `main`؛ يوجد ملف عمل `\.github/workflows/gh-pages.yml` سيقوم تلقائيًا بنشر مجلد `public` إلى Pages.
+	- أول مرة فقط: من إعدادات المستودع → Pages → اختر Source: GitHub Actions.
+
+2) استضافة الخادم (البروكسي) خارجيًا:
+	- خيار سريع: نشر هذا المشروع على Render/Railway/Vercel كخدمة Node.js واستخدام `npm start`.
+	- تأكد أن العنوان الناتج (مثال: `https://your-app.onrender.com`) يعمل ويعيد `GET /health` → `{ ok: true }`.
+
+3) ربط الواجهة بالبروكسي:
+	- عدّل ملف `public/config.js` وضع قيمة `window.API_BASE = 'https://your-app.onrender.com'`.
+	- أو مرر وسيط URL عند فتح الصفحة: `?api=https://your-app.onrender.com`.
+
+بعد ذلك ستعمل الواجهة على GitHub Pages وتتصل بالبروكسي الخارجي بدون مشاكل CORS.
