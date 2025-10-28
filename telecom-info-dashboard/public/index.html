@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>لوحة معلومات الإتصالات</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>عرض معلومات الحساب</h1>
+    <form id="lookup-form" class="card">
+      <div class="field">
+        <label for="user">المستخدم (البريد)</label>
+        <input dir="ltr" id="user" name="user" type="email" placeholder="example@domain.com" required />
+      </div>
+      <div class="field">
+        <label for="pass">كلمة المرور</label>
+        <input dir="ltr" id="pass" name="pass" type="password" placeholder="••••••••" required />
+      </div>
+      <button id="submit-btn" type="submit">استعلام</button>
+      <div id="status" class="status" aria-live="polite"></div>
+    </form>
+
+    <section id="result" class="card hidden">
+      <h2>النتيجة</h2>
+      <div class="grid">
+        <div><span class="label">الهاتف/الحساب</span><span id="r-phone" class="value"></span></div>
+        <div><span class="label">الاسم</span><span id="r-name" class="value"></span></div>
+        <div><span class="label">الحالة</span><span id="r-online" class="value"></span></div>
+        <div><span class="label">انتهاء الصلاحية</span><span id="r-exp" class="value"></span></div>
+        <div><span class="label">الاستهلاك</span><span id="r-usage" class="value"></span></div>
+        <div><span class="label">الباقة</span><span id="r-pkg" class="value"></span></div>
+        <div><span class="label">الخدمة</span><span id="r-serv" class="value"></span></div>
+        <div><span class="label">حد التجميع</span><span id="r-limitcomb" class="value"></span></div>
+        <div><span class="label">انتهاء الحد</span><span id="r-limitexp" class="value"></span></div>
+        <div><span class="label">آخر فاتورة</span><span id="r-lastinv" class="value"></span></div>
+      </div>
+      <details>
+        <summary>البيانات الأصلية (للمختصين)</summary>
+        <pre id="r-raw"></pre>
+      </details>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
